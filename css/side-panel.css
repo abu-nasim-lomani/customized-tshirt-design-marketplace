@@ -1,0 +1,129 @@
+#side-panel {
+  color: #5c5c5c;
+  cursor: default;
+}
+
+
+#sidePanelHeader {
+  height: 70px;
+  width: 100%;
+  /* border: 1px solid black; */
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.04), 2px 2px 6px rgba(146, 98, 98, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+#sidePanelContent {
+  padding: 15px;
+  overflow-y: auto;
+}
+
+#sidePanelFooter {
+  position: absolute;
+  bottom: 0;
+  width: 450px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload {
+  height: 50px;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.253);
+  width: 180px;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.04), 2px 2px 6px rgba(146, 98, 98, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.06);
+}
+
+
+.color-options {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.248);
+}
+
+.color.active {
+  border: 2px solid #000;
+}
+
+
+
+.currency-switcher {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.currency-button {
+  flex: 1;
+  padding: 13px;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.currency-button.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  font-size: 24px;
+}
+
+.price-input input {
+  flex: 1;
+  font-size: 22px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  padding: 5px;
+  margin: 0 10px;
+}
+
+.profit {
+  color: green;
+}
+
+
+.continue-button {
+  text-align: center;
+}
+
+.continue-button button {
+  background-color: #499257;
+  color: #fff;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 50px;
+  border-radius: 5px;
+  user-select: none;
+}

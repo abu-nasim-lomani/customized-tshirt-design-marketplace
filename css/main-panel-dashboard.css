@@ -1,0 +1,68 @@
+#mainPanelContent{
+    background-color: #f4f4f4;
+    height: 93%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main-dashboad-shirt{
+    /* background-image: url("image/shirt-image/tshirt-front.png"); */
+}
+svg {
+    background-color: rgba(0, 0, 128, 0.792);
+  }
+
+  .label {
+    cursor: pointer;
+  }
+  .label rect {
+    fill: white;
+  }
+  .label text {
+    fill: black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    pointer-events: none;
+  }
+  .hover-text {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .label:hover + .hover-text {
+    opacity: 1;
+  }
+
+
+
+
+  .toolbar {
+    margin: 10px;
+}
+
+canvas {
+    display: block;
+    border: 1px dashed red;
+    left: 255px;
+    top: 200px;
+}
+
+
+.parent-canvas {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    border: 1px solid black;
+    background-image: url('image/shirt-image/premium_tee_front.png'); /* Replace with your background image URL */
+    background-size: cover;
+}
+
+.child-canvas {
+    position: absolute;
+    left: 50px;
+    top: 30px;
+    width: 300px;
+    height: 400px;
+    background-color: red;
+    border: 1px solid black;
+}

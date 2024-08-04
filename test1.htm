@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text and Image Toolbar with Fabric.js</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .toolbar {
+            margin: 10px;
+        }
+
+        canvas {
+            display: block;
+            border: 1px dashed red;
+            left: 255px;
+            top: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toolbar">
+        <!-- Text Controls -->
+        <select id="font-family">
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+        </select>
+        <input type="color" id="text-color">
+        <button id="bold-btn"><b>B</b></button>
+        <button id="italic-btn"><i>I</i></button>
+        <button id="underline-btn"><u>U</u></button>
+        <button id="left-align-btn">&#8676;</button>
+        <button id="center-align-btn">&#8212;</button>
+        <button id="right-align-btn">&#8677;</button>
+        <!-- Image Controls -->
+        <button onclick="document.getElementById('fileInput').click()">Add Image</button>
+        <input type="file" id="fileInput" style="display:none" accept="image/*" />
+        <!-- Text Controls -->
+        <button id="add-text-btn">Add Text</button>
+        <button id="delete-btn">Delete</button>
+    </div>
+    
+        <canvas id="canvas" width="300" height="400"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <script>
+        const canvas = new fabric.Canvas('canvas');
+
+        // Function to add an image to the canvas
+        function addImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (f) {
+                    fabric.Image.fromURL(f.target.result, function (img) {
+                        // Calculate the aspect ratio
+                        const aspectRatio = img.width / img.height;
+                        const desiredWidth = 150;
+                        const desiredHeight = 150 / aspectRatio;
+
+                        img.set({
+                            left: 100,
+                            top: 100,
+                            angle: 0,
+                            padding: 0,
+                            borderColor: 'red',
+                            cornerColor: 'blue',
+                            cornerStrokeColor: 'blue',
+                            transparentCorners: false,
+                            scaleX: desiredWidth / img.width,
+                            scaleY: desiredHeight / img.height
+                        });
+                        canvas.add(img).setActiveObject(img);
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Function to add a new text object to the canvas
+        function addText() {
+            const newText = new fabric.IText('New Text', {
+                left: 50,
+                top: 50,
+                fontFamily: 'Arial',
+                fill: '#000',
+                fontSize: 20,
+            });
+            canvas.add(newText).setActiveObject(newText);
+        }
+
+        // Set up event listeners for toolbar controls
+        document.getElementById('font-family').onchange = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('fontFamily', this.value);
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('text-color').onchange = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('fill', this.value);
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('bold-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('fontWeight', selectedObject.fontWeight === 'bold' ? 'normal' : 'bold');
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('italic-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('fontStyle', selectedObject.fontStyle === 'italic' ? 'normal' : 'italic');
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('underline-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('underline', !selectedObject.underline);
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('left-align-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('textAlign', 'left');
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('center-align-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('textAlign', 'center');
+                canvas.renderAll();
+            }
+        };
+
+        document.getElementById('right-align-btn').onclick = function () {
+            const selectedObject = canvas.getActiveObject();
+            if (selectedObject && selectedObject.type === 'i-text') {
+                selectedObject.set('textAlign', 'right');
+                canvas.renderAll();
+            }
+        };
+
+        // Add event listener for adding text
+        document.getElementById('add-text-btn').onclick = addText;
+
+        // Delete selected object
+        document.getElementById('delete-btn').onclick = function () {
+            const activeObject = canvas.getActiveObject();
+            if (activeObject) {
+                canvas.remove(activeObject);
+            }
+        };
+
+        // Function to handle keyboard movement
+        function moveObjectWithKeyboard(event) {
+            const activeObject = canvas.getActiveObject();
+            if (activeObject) {
+                switch (event.key) {
+                    case 'ArrowUp':
+                        activeObject.top -= 5;
+                        break;
+                    case 'ArrowDown':
+                        activeObject.top += 5;
+                        break;
+                    case 'ArrowLeft':
+                        activeObject.left -= 5;
+                        break;
+                    case 'ArrowRight':
+                        activeObject.left += 5;
+                        break;
+                }
+                activeObject.setCoords();
+                canvas.renderAll();
+            }
+        }
+
+        // Add keyboard event listener
+        document.addEventListener('keydown', moveObjectWithKeyboard);
+
+        // Add event listener for file input
+        document.getElementById('fileInput').addEventListener('change', addImage);
+    </script>
+</body>
+
+</html>

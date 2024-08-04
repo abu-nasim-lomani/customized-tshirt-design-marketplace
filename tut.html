@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent and Child Canvas</title>
+    <style>
+       
+
+        .parent-canvas {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            border: 1px solid black;
+            background-image: url('image/shirt-image/premium_tee_front.png'); /* Replace with your background image URL */
+            background-size: cover;
+        }
+
+        .child-canvas {
+            position: absolute;
+            left: 50px;
+            top: 30px;
+            width: 300px;
+            height: 400px;
+            background-color: red;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+        <!-- Parent Canvas -->
+        <canvas class="parent-canvas"></canvas>
+
+        <!-- Child Canvas -->
+        <canvas class="child-canvas"></canvas>
+
+    <!-- <script>
+        // Optional: You can add any JavaScript functionality here
+
+        // Example: Drawing on the child canvas
+        const childCanvas = document.querySelector('.child-canvas');
+        const childContext = childCanvas.getContext('2d');
+
+        // Draw a rectangle on the child canvas
+        childContext.fillStyle = 'blue';
+        childContext.fillRect(50, 50, 200, 300);
+    </script> -->
+</body>
+</html>
